@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar>
+              <mat-icon class="user-avatar" inline="true">face</mat-icon>
+          </div>
+          <mat-card-title> User Name </mat-card-title>
+          <mat-card-subtitle> 300 XP </mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>
+    <button color="primary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/initial" href="#">Link 1</a>
+      <a mat-list-item routerLink="/quiz" href="#">Link 2</a>
+      <a mat-list-item routerLink="/summary" href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>The Quiz 2000</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

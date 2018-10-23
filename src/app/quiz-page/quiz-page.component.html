@@ -1,0 +1,10 @@
+<mat-spinner class="spinner" *ngIf="!question"></mat-spinner>
+<section *ngIf="question">
+  <mat-card class="quiz-page-question">{{question}}</mat-card>
+  <mat-radio-group class="quiz-page-answers" [(ngModel)]="selectedAnswer">
+      <mat-radio-button class="quiz-page-answers--answer" *ngFor="let answer of answers" [value]="answer.id"> {{answer.label}} </mat-radio-button>
+  </mat-radio-group>
+  <div class="quiz-button-container">
+      <button color="primary" ng-disabled="selectedAnswer" mat-raised-button mat-button (click)="validateAnswer()">Confirm!</button>
+  </div>
+</section>

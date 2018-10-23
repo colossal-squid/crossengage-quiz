@@ -1,0 +1,16 @@
+<form class="initial-page">
+
+  <h3> {{ 'initial.choose_name' | translate }} </h3>
+  <mat-form-field class="initial-page--input">
+      <input matInput placeholder="Your name" [value]="userName">
+  </mat-form-field>
+  
+  <h3> {{ 'difficulty.choose_difficulty' | translate }} </h3>
+  <mat-radio-group class="initial-page--radios">
+      <mat-radio-button *ngFor="let level of levels" [value]="level.id">{{level.key | translate}}</mat-radio-button>
+  </mat-radio-group>
+  
+  <div class="initial-page--button-container">
+    <button color="primary" mat-raised-button mat-button> {{ 'start' |translate }}</button>
+  </div>
+</form>

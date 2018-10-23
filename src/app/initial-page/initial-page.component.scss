@@ -1,0 +1,26 @@
+.initial-page {
+
+    min-width: 300px;
+    max-width: 600px;
+    padding: 30px;
+    margin: auto;
+
+    &--radios,
+    &--input {
+        width: 100%;
+    }
+
+    &--radios {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &--button-container {
+        margin: 30px auto;
+        display: flex;
+
+        button {
+            margin: auto;
+        }
+    }
+}
