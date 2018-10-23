@@ -1,32 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 
-interface UserModel {
+export interface UserModel {
   name: string,
   level: number,
-  score: number
 }
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
+  private windowRef:Window;
   private user:UserModel = <UserModel>{}; 
-  
-  constructor() { }
+  private static readonly sessionStorageKey = 'rg_quiz_user';
+
+  constructor(@Inject('WINDOW') window:Window) {
+      let lastUser = window.sessionStorage.getItem(UserService.sessionStorageKey);
+      if (!!lastUser) {
+        this.user = JSON.parse(lastUser);
+      }
+      this.windowRef = window;
+    }
 
   setUserInfo(username:string, level:number) {
     this.user = {
       name: username,
-      level: level,
-      score: 0
+      level: level
     };
-  }
-
-  addScore(score:number) {
-    if (score > 0) {
-
-    }
-    this.user.score += score;
+    this.windowRef.sessionStorage.setItem(UserService.sessionStorageKey, JSON.stringify(this.user));
   }
 
   get userInfo():UserModel {

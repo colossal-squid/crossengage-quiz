@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,15 @@ export class AppRootComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver,
-              private userService: UserService) {}
+              private userService: UserService,
+              private gameService: GameService) {}
 
   get user() {
     return this.userService.userInfo;
+  }
+
+  get score() {
+    return this.gameService.score;
   }
 
 }

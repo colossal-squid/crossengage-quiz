@@ -9,8 +9,8 @@
           <div mat-card-avatar>
               <mat-icon class="user-avatar" inline="true">face</mat-icon>
           </div>
-          <mat-card-title> {{user.name || '???' }} </mat-card-title>
-          <mat-card-subtitle> {{ (user.score || 0) * 100 }} XP </mat-card-subtitle>
+          <mat-card-title> {{user.name || ('please_login'|translate) }} </mat-card-title>
+          <mat-card-subtitle> {{ score }}</mat-card-subtitle>
         </mat-card-header>
     </mat-card>
     <button color="primary" [disabled]="!user.name" routerLink="/summary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>

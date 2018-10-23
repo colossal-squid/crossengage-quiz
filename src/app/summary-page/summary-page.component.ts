@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-summary-page',
   templateUrl: './summary-page.component.html',
   styleUrls: ['./summary-page.component.scss']
 })
-export class SummaryPageComponent implements OnInit {
+export class SummaryPageComponent {
 
-  constructor() { }
+  constructor(private gameService:GameService) { }
 
-  ngOnInit() {
-    console.log('summary inited!');
-  }
-
+  get allAnswers() {
+    return this.gameService.questionsAnswered;
+  } 
 }

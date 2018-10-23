@@ -25,7 +25,7 @@ export class QuestionsService {
     }))
   }
   
-  public getQuestionAndAnswers():Observable<any> {
+  public getQuestionAndAnswers():Observable<QuestionAndAnswerModel> {
     return this.getQuestion().pipe(
       mergeMap((question:QuestionModel) => this.getAnswers(question))
     );
@@ -44,8 +44,10 @@ export interface AnswerModel {
   label: string
 }
 
-export interface QuestionAndAnswerModel {
+export interface GameQuestion {
   answers:AnswerModel[],
   question: string,
+}
+export interface QuestionAndAnswerModel extends GameQuestion{
   answerId: string
 }

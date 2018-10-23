@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionsService, AnswerModel } from 'src/app/services/questions.service';
 import { MatSnackBar } from '@angular/material';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { APP_ROUTES } from 'src/app/settings.service';
+import { GameService } from 'src/app/services/game.service';
+import { GameQuestion, AnswerModel } from 'src/app/services/questions.service';
 
 
 @Component({
@@ -14,12 +15,12 @@ import { APP_ROUTES } from 'src/app/settings.service';
 export class QuizPageComponent implements OnInit {
 
   public question:string = '';
-  public answers:any[] = [];
+  public answers:AnswerModel[] = [];
   public selectedAnswer: string;
 
   private correctAnswerId:string;
 
-  constructor(private questionsService:QuestionsService,
+  constructor(private gameService:GameService,
               private userService:UserService,
               private snackBar: MatSnackBar,
               private router:Router) { }
@@ -31,10 +32,9 @@ export class QuizPageComponent implements OnInit {
   loadQuestion() {
     this.question = '';
     this.answers = [];
-    this.questionsService.getQuestionAndAnswers().subscribe(res=>{
+    this.gameService.getQuestion().subscribe((res:GameQuestion)=>{
       this.question = res.question;
       this.answers = res.answers;
-      this.correctAnswerId = res.answerId;
       this.selectedAnswer = this.answers[0].id;
     }, err=>{
       this.router.navigate([`/${APP_ROUTES.OFFLINE}`]);
@@ -42,11 +42,10 @@ export class QuizPageComponent implements OnInit {
   }
 
   validateAnswer() {
-    if (this.selectedAnswer === this.correctAnswerId) {
-      this.userService.addScore(1);
+    const valid = this.gameService.giveAnswer(this.selectedAnswer);
+    if (valid) {
       this.showOkScreen();
     } else {
-      this.userService.addScore(-1);
       this.showMistakeScreen();
     }
     this.loadQuestion();

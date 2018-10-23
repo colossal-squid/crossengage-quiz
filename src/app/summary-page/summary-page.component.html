@@ -1,3 +1,11 @@
-<p>
-  summary-page works!
-</p>
+<section class="summary-page">
+    <h3> You have answered {{allAnswers.length}} questions </h3>
+    <h3> Here they are </h3>
+    <mat-list>
+        <mat-list-item class="summary-page--item" *ngFor="let item of allAnswers">
+         <span>  {{ item.question }} </span>
+         <span *ngIf="!item.answeredCorrectly" class="wrong"> {{item.chosenAnswer}} </span> 
+         <span  class="correct"> {{item.rightAnswer}} </span> 
+        </mat-list-item>
+    </mat-list>
+</section>

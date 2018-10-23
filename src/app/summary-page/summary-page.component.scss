@@ -1,0 +1,18 @@
+.summary-page {
+    margin: 20px;
+    &--item {
+        margin-bottom: 10px;
+        border-bottom: 1px solid grey;
+    }
+}
+.wrong,
+.correct {
+    margin: 8px;
+}
+.wrong {
+    color: red;
+    text-decoration: line-through;
+}
+.correct {
+    color: green;
+}

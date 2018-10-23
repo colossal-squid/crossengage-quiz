@@ -47,7 +47,8 @@ export class L10nService {
     "start_over": "Please click here to start over again",
     "finish_game": "Take me to results page",
     "offline": "It looks like our services are offline at the moment! We will be back soon!",
-    "confirm": "Confirm!"
+    "confirm": "Confirm!",
+    "please_login": "Your name will be here"
   };
 
   private static readonly TEXT_BUNDLE_FLAT = flatten( L10nService.TEXT_BUNDLE );;

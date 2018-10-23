@@ -4,6 +4,7 @@ import { L10nService } from 'src/app/services/l10n.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { APP_ROUTES } from 'src/app/settings.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-initial-page',
@@ -22,7 +23,8 @@ export class InitialPageComponent implements OnInit {
   constructor(private settings:SettingsService,
               private l10n:L10nService,
               private userService:UserService,
-              private router: Router) { }
+              private gameService:GameService,
+              private router: Router) {}
 
   ngOnInit() {
     this.userName = this.getInitialRandomName();
@@ -37,6 +39,7 @@ export class InitialPageComponent implements OnInit {
 
   public saveUserSettings() {
     this.userService.setUserInfo(this.userName, this.selectedLevel);
+    this.gameService.start(this.userService.userInfo);
     this.router.navigate([`/${APP_ROUTES.QUIZ}`]);
   }
 }

@@ -27,7 +27,8 @@ const MATERIAL_MODULES = [
   MatInputModule,
   MatCardModule,
   MatSnackBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatListModule
 ];
 @NgModule({
   declarations: [
