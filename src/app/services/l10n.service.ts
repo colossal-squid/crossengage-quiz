@@ -44,7 +44,9 @@ export class L10nService {
       "name": "Your Name"
     },
     "start": "Click here to start!",
+    "start_over": "Please click here to start over again",
     "finish_game": "Take me to results page",
+    "offline": "It looks like our services are offline at the moment! We will be back soon!",
     "confirm": "Confirm!"
   };
 

@@ -10,6 +10,7 @@ export class SummaryPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('summary inited!');
   }
 
 }

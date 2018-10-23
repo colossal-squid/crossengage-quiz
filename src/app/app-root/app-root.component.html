@@ -9,16 +9,11 @@
           <div mat-card-avatar>
               <mat-icon class="user-avatar" inline="true">face</mat-icon>
           </div>
-          <mat-card-title> User Name </mat-card-title>
-          <mat-card-subtitle> 300 XP </mat-card-subtitle>
+          <mat-card-title> {{user.name || '???' }} </mat-card-title>
+          <mat-card-subtitle> {{ (user.score || 0) * 100 }} XP </mat-card-subtitle>
         </mat-card-header>
     </mat-card>
-    <button color="primary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/initial" href="#">Link 1</a>
-      <a mat-list-item routerLink="/quiz" href="#">Link 2</a>
-      <a mat-list-item routerLink="/summary" href="#">Link 3</a>
-    </mat-nav-list>
+    <button color="primary" [disabled]="!user.name" routerLink="/summary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

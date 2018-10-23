@@ -12,6 +12,8 @@ import { QuizPageComponent } from './quiz-page/quiz-page.component';
 import { SummaryPageComponent } from './summary-page/summary-page.component';
 import { TranslatePipe } from 'src/app/services/l10n.service';
 import { FormsModule } from '@angular/forms';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { OfflinePageComponent } from './offline-page/offline-page.component';
 
 const MATERIAL_MODULES = [
   LayoutModule,
@@ -33,7 +35,9 @@ const MATERIAL_MODULES = [
     InitialPageComponent,
     QuizPageComponent,
     SummaryPageComponent,
-    TranslatePipe
+    TranslatePipe,
+    ErrorPageComponent,
+    OfflinePageComponent
   ],
   imports: [
     BrowserModule,

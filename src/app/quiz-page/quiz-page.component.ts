@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionsService, AnswerModel } from 'src/app/services/questions.service';
 import { MatSnackBar } from '@angular/material';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from 'src/app/settings.service';
+
 
 @Component({
   selector: 'app-quiz-page',
@@ -16,7 +20,9 @@ export class QuizPageComponent implements OnInit {
   private correctAnswerId:string;
 
   constructor(private questionsService:QuestionsService,
-              public snackBar: MatSnackBar) { }
+              private userService:UserService,
+              private snackBar: MatSnackBar,
+              private router:Router) { }
 
   ngOnInit() {
     this.loadQuestion();
@@ -31,14 +37,16 @@ export class QuizPageComponent implements OnInit {
       this.correctAnswerId = res.answerId;
       this.selectedAnswer = this.answers[0].id;
     }, err=>{
-      // TODO: HANDLE THIS!
+      this.router.navigate([`/${APP_ROUTES.OFFLINE}`]);
     });
   }
 
   validateAnswer() {
     if (this.selectedAnswer === this.correctAnswerId) {
+      this.userService.addScore(1);
       this.showOkScreen();
     } else {
+      this.userService.addScore(-1);
       this.showMistakeScreen();
     }
     this.loadQuestion();

@@ -1,0 +1,13 @@
+.offline-page {
+    display: flex;
+    flex-direction: column;
+
+    &--icon {
+        font-size: 60vh;
+        margin: auto;
+    }
+
+    &--message {
+        padding: 30px;
+    }
+}
