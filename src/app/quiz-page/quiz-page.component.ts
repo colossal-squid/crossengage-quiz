@@ -14,16 +14,16 @@ import { GameQuestion, AnswerModel } from 'src/app/services/questions.service';
 })
 export class QuizPageComponent implements OnInit {
 
-  public question:string = '';
-  public answers:AnswerModel[] = [];
+  public question = '';
+  public answers: AnswerModel[] = [];
   public selectedAnswer: string;
 
-  private correctAnswerId:string;
+  private correctAnswerId: string;
 
-  constructor(private gameService:GameService,
-              private userService:UserService,
+  constructor(private gameService: GameService,
+              private userService: UserService,
               private snackBar: MatSnackBar,
-              private router:Router) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.loadQuestion();
@@ -32,11 +32,11 @@ export class QuizPageComponent implements OnInit {
   loadQuestion() {
     this.question = '';
     this.answers = [];
-    this.gameService.getQuestion().subscribe((res:GameQuestion)=>{
+    this.gameService.getQuestion().subscribe((res: GameQuestion) => {
       this.question = res.question;
       this.answers = res.answers;
       this.selectedAnswer = this.answers[0].id;
-    }, err=>{
+    }, err => {
       this.router.navigate([`/${APP_ROUTES.OFFLINE}`]);
     });
   }

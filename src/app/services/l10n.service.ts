@@ -11,14 +11,14 @@ import { Pipe, PipeTransform } from '@angular/core';
  * @return {object}        - The resulting flat object
  */
 const flatten = object => {
-  return Object.assign( {}, ...function _flatten( objectBit, path = '' ) {  //spread the result into our return object
-    return [].concat(                                                       //concat everything into one level
-      ...Object.keys( objectBit ).map(                                      //iterate over object
-        key => typeof objectBit[ key ] === 'object' ?                       //check if there is a nested object
-          _flatten( objectBit[ key ], `${ path }.${ key }` ) :              //call itself if there is
-          ( { [ `${ path }.${ key }` ]: objectBit[ key ] } )                //append object with it’s path as key
+  return Object.assign( {}, ...function _flatten( objectBit, path = '' ) {  // spread the result into our return object
+    return [].concat(                                                       // concat everything into one level
+      ...Object.keys( objectBit ).map(                                      // iterate over object
+        key => typeof objectBit[ key ] === 'object' ?                       // check if there is a nested object
+          _flatten( objectBit[ key ], `${ path }.${ key }` ) :              // call itself if there is
+          ( { [ `${ path }.${ key }` ]: objectBit[ key ] } )                // append object with it’s path as key
       )
-    )
+    );
   }( object ) );
 };
 
@@ -28,60 +28,60 @@ const flatten = object => {
 export class L10nService {
 
   // this can be externalized into a json for real l10n
-  private static readonly TEXT_BUNDLE:any = {
-    "difficulty" : {
-      "choose_difficulty": "Choose difficulty",
-      "levels": {
-        "easy": "Easy",
-        "medium": "Medium",
-        "hard": "Hard",
+  private static readonly TEXT_BUNDLE: any = {
+    'difficulty' : {
+      'choose_difficulty': 'Choose difficulty',
+      'levels': {
+        'easy': 'Easy',
+        'medium': 'Medium',
+        'hard': 'Hard',
       }
     },
-    "initial": {
-      "choose_name": "Pick yourself a name"
+    'initial': {
+      'choose_name': 'Pick yourself a name'
     },
-    "user": {
-      "name": "Your Name"
+    'user': {
+      'name': 'Your Name'
     },
-    "summary": {
-      "you_have_answered_x_questions" : "You have answered {0}/{1} questions",
-      "all_answers": "All answers"
+    'summary': {
+      'you_have_answered_x_questions' : 'You have answered {0}/{1} questions',
+      'all_answers': 'All answers'
     },
-    "start": "Click here to start!",
-    "or": "or",
-    "restart": "Restart",
-    "start_over": "Please click here to start over again",
-    "finish_game": "Take me to results page",
-    "offline": "It looks like our services are offline at the moment! We will be back soon!",
-    "confirm": "Confirm!",
-    "please_login": "Your name will be here"
+    'start': 'Click here to start!',
+    'or': 'or',
+    'restart': 'Restart',
+    'start_over': 'Please click here to start over again',
+    'finish_game': 'Take me to results page',
+    'offline': 'It looks like our services are offline at the moment! We will be back soon!',
+    'confirm': 'Confirm!',
+    'please_login': 'Your name will be here'
   };
 
-  private static readonly TEXT_BUNDLE_FLAT = flatten( L10nService.TEXT_BUNDLE );;
+  private static readonly TEXT_BUNDLE_FLAT = flatten( L10nService.TEXT_BUNDLE );
 
-  constructor(private logging:LoggingService) {}
+  constructor(private logging: LoggingService) {}
 
-  public getString(key:string) {
+  public getString(key: string) {
     if (!L10nService.TEXT_BUNDLE_FLAT[`.${key}`]) {
       this.logging.warn(`No i18n for ${key}`);
     }
     return L10nService.TEXT_BUNDLE_FLAT[`.${key}`] || '-';
   }
 
-  public formatString(key:string, args: any[]):string {
-   let localized = this.getString(key) || "";
+  public formatString(key: string, args: any[]): string {
+   const localized = this.getString(key) || '';
    return localized.replace(
     /\{([0-9]+)\}/g,
-    function (_, index) { return args[index]; })
+    function (_, index) { return args[index]; });
   }
 }
 
 @Pipe({name: 'translate'})
 export class TranslatePipe implements PipeTransform {
-  constructor(private l10n:L10nService){}
-  
-  transform(key :string, ...params: any[]): string {
-    if (!params || !params.length){
+  constructor(private l10n: L10nService) {}
+
+  transform(key: string, ...params: any[]): string {
+    if (!params || !params.length) {
       return this.l10n.getString(key);
     } else {
       return this.l10n.formatString(key, params);

@@ -8,13 +8,13 @@ import { GameService, FixedAnswer } from 'src/app/services/game.service';
 })
 export class SummaryPageComponent {
 
-  constructor(private gameService:GameService) { }
+  constructor(private gameService: GameService) { }
 
   get allAnswers() {
     return this.gameService.questionsAnswered;
   }
 
   get rightAnswers() {
-    return this.gameService.questionsAnswered.filter((q:FixedAnswer)=>q.answeredCorrectly)
+    return this.gameService.questionsAnswered.filter((q: FixedAnswer) => q.answeredCorrectly);
   }
 }

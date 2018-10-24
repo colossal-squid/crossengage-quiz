@@ -11,43 +11,43 @@ export class QuestionsService {
 
   constructor(private http: HttpClient) { }
 
-  private getQuestion():Observable<QuestionModel> {
+  private getQuestion(): Observable<QuestionModel> {
     return <Observable<QuestionModel>>this.http.get(`${this.SERVICE_BASE_PATH}/getRandomQuestion`);
   }
 
-  private getAnswers(question:QuestionModel):Observable<QuestionAndAnswerModel> {
-    return <Observable<QuestionAndAnswerModel>> this.http.get(`${this.SERVICE_BASE_PATH}/getAnswers?cat=${question.category}`).pipe(map(response=>{
+  private getAnswers(question: QuestionModel): Observable<QuestionAndAnswerModel> {
+    return <Observable<QuestionAndAnswerModel>> this.http.get(`${this.SERVICE_BASE_PATH}/getAnswers?cat=${question.category}`).pipe(map(response => {
       return {
         question: question.text,
         answers: response,
         answerId: question.answerId
       };
-    }))
+    }));
   }
-  
-  public getQuestionAndAnswers():Observable<QuestionAndAnswerModel> {
+
+  public getQuestionAndAnswers(): Observable<QuestionAndAnswerModel> {
     return this.getQuestion().pipe(
-      mergeMap((question:QuestionModel) => this.getAnswers(question))
+      mergeMap((question: QuestionModel) => this.getAnswers(question))
     );
   }
 }
 
 export interface QuestionModel {
-  answerId: string,
-  category: string,
-  id: string,
-  text: string
+  answerId: string;
+  category: string;
+  id: string;
+  text: string;
 }
 
 export interface AnswerModel {
-  id: string,
-  label: string
+  id: string;
+  label: string;
 }
 
 export interface GameQuestion {
-  answers:AnswerModel[],
-  question: string,
+  answers: AnswerModel[];
+  question: string;
 }
-export interface QuestionAndAnswerModel extends GameQuestion{
-  answerId: string
+export interface QuestionAndAnswerModel extends GameQuestion {
+  answerId: string;
 }

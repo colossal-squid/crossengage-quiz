@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class RoutesGuard implements CanActivate {
 
   constructor (
-    private userService:UserService,
+    private userService: UserService,
     private router: Router) {
   }
 
@@ -24,7 +24,7 @@ export class RoutesGuard implements CanActivate {
         canNavigate = !!this.userService.userInfo.name;
       }
       if (!canNavigate) {
-        this.router.navigate([`/${APP_ROUTES.ERROR}`])
+        this.router.navigate([`/${APP_ROUTES.ERROR}`]);
       }
     return canNavigate;
   }

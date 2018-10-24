@@ -12,19 +12,19 @@ import { GameService } from 'src/app/services/game.service';
   styleUrls: ['./initial-page.component.scss']
 })
 export class InitialPageComponent implements OnInit {
+  constructor(private settings: SettingsService,
+              private l10n: L10nService,
+              private userService: UserService,
+              private gameService: GameService,
+              private router: Router) {}
 
-  public userName:string;
-  public levels:any[] = [];
-  public selectedLevel:number;
-
-  static readonly USERNAMES:string[] = [
+  static readonly USERNAMES: string[] = [
     'Tony Hawk', 'Bob Burnquist', 'Kareem Campbell', 'Elissa Steamer', 'Jamie Thomas', 'Spider-Man'
   ];
-  constructor(private settings:SettingsService,
-              private l10n:L10nService,
-              private userService:UserService,
-              private gameService:GameService,
-              private router: Router) {}
+
+  public userName: string;
+  public levels: any[] = [];
+  public selectedLevel: number;
 
   ngOnInit() {
     this.userName = this.getInitialRandomName();
@@ -34,7 +34,7 @@ export class InitialPageComponent implements OnInit {
 
   private getInitialRandomName() {
     const randomName = InitialPageComponent.USERNAMES[ Math.floor(InitialPageComponent.USERNAMES.length * Math.random())];
-    return `${randomName}_${Math.floor(Math.random()*99)}`;
+    return `${randomName}_${Math.floor(Math.random() * 99)}`;
   }
 
   public saveUserSettings() {

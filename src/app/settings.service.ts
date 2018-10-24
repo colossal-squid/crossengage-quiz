@@ -9,9 +9,9 @@ export const APP_ROUTES = {
 };
 
 export interface DifficultySetting {
-  id:number,
-  key: string,
-  answers:number
+  id: number;
+  key: string;
+  answers: number;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface DifficultySetting {
 })
 export class SettingsService {
 
-  public readonly DIFFICULTY_SETTINGS:DifficultySetting[] = [
+  public readonly DIFFICULTY_SETTINGS: DifficultySetting[] = [
     { id: 1, key: 'difficulty.levels.easy', answers: 3 },
     { id: 2, key: 'difficulty.levels.medium', answers: 4 },
     { id: 3, key: 'difficulty.levels.hard', answers: 5 }

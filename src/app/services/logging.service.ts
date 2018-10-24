@@ -4,9 +4,9 @@ import { Injectable, Inject } from '@angular/core';
   providedIn: 'root'
 })
 export class LoggingService {
-  private console:any;
+  private console: any;
 
-  constructor(@Inject('WINDOW') window:Window) { 
+  constructor(@Inject('WINDOW') window: Window) {
     this.console = window.console;
   }
 
