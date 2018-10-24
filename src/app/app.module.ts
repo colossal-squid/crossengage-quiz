@@ -49,13 +49,9 @@ const MATERIAL_MODULES = [
     ...MATERIAL_MODULES
   ],
   providers: [
-    { provide: 'WINDOW', useFactory: getWindow }
+     // isPlatformBrowser may make sense here. I only use this to wrap logging and for session storage
+    { provide: 'WINDOW', useValue: window }
   ],
   bootstrap: [AppRootComponent]
 })
 export class AppModule { }
-
-function getWindow() {
-  // isPlatformBrowser may make sense here. I only use this to wrap logging 
-  return window;
-}

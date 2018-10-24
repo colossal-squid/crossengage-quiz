@@ -1,11 +1,16 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { RoutesGuard } from './routes.guard';
 
 describe('RoutesGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RoutesGuard]
+      imports: [RouterTestingModule],
+      providers: [RoutesGuard, {
+        provide: 'WINDOW', useValue: { sessionStorage: {
+          getItem: jasmine.createSpy(),
+          setItem: jasmine.createSpy()
+      } }}]
     });
   });
 

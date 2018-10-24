@@ -94,7 +94,7 @@ export class GameService {
   }
   
   get questionsAnswered():FixedAnswer[]{
-    return this.state.questionsAnswered;
+    return this.state ? this.state.questionsAnswered : [];
   }
 
   public reset() {
