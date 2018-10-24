@@ -1,6 +1,6 @@
 <section class="summary-page">
-    <h3> You have answered {{allAnswers.length}} questions </h3>
-    <h3> Here they are </h3>
+    <h3> {{ 'summary.you_have_answered_x_questions' | translate: rightAnswers.length:allAnswers.length}} </h3>
+    <h3> {{ 'summary.all_answers' | translate }}</h3>
     <mat-list>
         <mat-list-item class="summary-page--item" *ngFor="let item of allAnswers">
          <span>  {{ item.question }} </span>

@@ -3,6 +3,7 @@ import { UserModel } from 'src/app/services/user.service';
 import { AnswerModel, QuestionAndAnswerModel, QuestionsService, GameQuestion } from 'src/app/services/questions.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/internal/operators/map';
+import { SettingsService } from 'src/app/settings.service';
 
 interface State {
   totalScore: number,
@@ -30,7 +31,8 @@ export class GameService {
   private static readonly sessionStorageKey = 'rg_quiz_game';
 
   constructor (private questionsService:QuestionsService,
-    @Inject('WINDOW') window:Window) {
+               private settings:SettingsService,
+               @Inject('WINDOW') window:Window) {
       this.windowRef = window;
       let lastState = window.sessionStorage.getItem(GameService.sessionStorageKey);
       if (!!lastState) {
@@ -48,13 +50,27 @@ export class GameService {
     this.windowRef.sessionStorage.setItem(GameService.sessionStorageKey, JSON.stringify(this.state));
   }
 
+  private filterAnswersByDIfficulty(answers:AnswerModel[], answerId:string):AnswerModel[] {
+    const answersCount = this.settings.DIFFICULTY_SETTINGS.find( setting=>setting.id === this.state.user.level ).answers;
+    const correctAnswer = answers.find((answer:AnswerModel)=>answer.id === answerId);
+    let filtered = [correctAnswer];
+    let i=0;
+    while (filtered.length < answersCount && i < answers.length) {
+      if (filtered.indexOf(answers[i]) === -1){
+        filtered.push(answers[i]);
+      }
+      i++;
+    }
+    return filtered;
+  }
+
   public getQuestion():Observable<GameQuestion> {
     return this.questionsService.getQuestionAndAnswers().pipe(
       map((res:QuestionAndAnswerModel) => {
         this.currentQuestion = res;
         return <GameQuestion>{
           question: res.question,
-          answers: res.answers
+          answers: this.filterAnswersByDIfficulty(res.answers, res.answerId)
         };
       })
     );
@@ -81,8 +97,8 @@ export class GameService {
     return this.state.questionsAnswered;
   }
 
-  public done() {
-    
+  public reset() {
+    this.state = null;
   }
 
   

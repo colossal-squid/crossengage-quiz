@@ -43,7 +43,13 @@ export class L10nService {
     "user": {
       "name": "Your Name"
     },
+    "summary": {
+      "you_have_answered_x_questions" : "You have answered {0}/{1} questions",
+      "all_answers": "All answers"
+    },
     "start": "Click here to start!",
+    "or": "or",
+    "restart": "Restart",
     "start_over": "Please click here to start over again",
     "finish_game": "Take me to results page",
     "offline": "It looks like our services are offline at the moment! We will be back soon!",
@@ -62,13 +68,23 @@ export class L10nService {
     return L10nService.TEXT_BUNDLE_FLAT[`.${key}`] || '-';
   }
 
+  public formatString(key:string, args: any[]):string {
+   let localized = this.getString(key) || "";
+   return localized.replace(
+    /\{([0-9]+)\}/g,
+    function (_, index) { return args[index]; })
+  }
 }
 
 @Pipe({name: 'translate'})
 export class TranslatePipe implements PipeTransform {
   constructor(private l10n:L10nService){}
-
-  transform(key :string): string {
-    return this.l10n.getString(key);
+  
+  transform(key :string, ...params: any[]): string {
+    if (!params || !params.length){
+      return this.l10n.getString(key);
+    } else {
+      return this.l10n.formatString(key, params);
+    }
   }
 }

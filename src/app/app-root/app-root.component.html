@@ -13,7 +13,11 @@
           <mat-card-subtitle> {{ score }}</mat-card-subtitle>
         </mat-card-header>
     </mat-card>
-    <button color="primary" [disabled]="!user.name" routerLink="/summary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>
+    <section class="menu-buttons">
+        <button color="primary" [disabled]="!user.name" routerLink="/summary" mat-raised-button mat-button> {{ 'finish_game' |translate }}</button>
+        <p> {{'or' | translate}}</p>
+        <button color="accent" (click)="restart()" mat-raised-button mat-button> {{ 'restart' |translate }}</button>
+    </section>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">

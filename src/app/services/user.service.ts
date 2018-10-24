@@ -20,6 +20,10 @@ export class UserService {
       this.windowRef = window;
     }
 
+  reset() {
+    this.user = null;
+  }
+
   setUserInfo(username:string, level:number) {
     this.user = {
       name: username,
